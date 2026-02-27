@@ -22,7 +22,7 @@ export type DocComponent = {
   slug: string
   name: string
   description: string
-  category: 'sections' | 'floating'
+  category: 'sections' | 'floating' | 'templates'
   variants: DocVariant[]
 }
 
@@ -553,6 +553,214 @@ export default function Page() {
   },
 ]
 
+// ─── 랜딩페이지 템플릿 ───────────────────────────────────────────
+
+const sajuLandingVariants: DocVariant[] = [
+  {
+    name: 'default',
+    label: 'Preview',
+    preview: (
+      <div className="w-full rounded-lg overflow-hidden border border-border text-xs font-sans">
+        {/* Hero */}
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 text-white px-6 py-8 text-center">
+          <div className="text-base font-bold mb-1">당신의 사주가 말하는 진짜 운명을 만나세요</div>
+          <div className="text-slate-300 text-xs mb-3">30년 경력 역술인이 사주팔자·오행·대운을 정밀 분석해 인생의 방향을 밝혀드립니다</div>
+          <div className="flex gap-2 justify-center">
+            <span className="bg-white text-slate-900 rounded px-3 py-1 font-medium">지금 바로 상담 예약</span>
+            <span className="border border-white rounded px-3 py-1">서비스 소개 보기</span>
+          </div>
+        </div>
+        {/* Stats */}
+        <div className="grid grid-cols-4 bg-slate-100 divide-x divide-border">
+          {[['🔮','8,500+','누적 상담'],['⭐','4.9/5','만족도'],['🗓️','30년','경력'],['🔄','94%','재방문율']].map(([icon, val, label]) => (
+            <div key={label} className="py-3 text-center">
+              <div>{icon}</div>
+              <div className="font-bold text-sm">{val}</div>
+              <div className="text-muted-foreground">{label}</div>
+            </div>
+          ))}
+        </div>
+        {/* Cards */}
+        <div className="px-6 py-5 bg-background">
+          <div className="font-bold text-sm text-center mb-3">주요 상담 서비스</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[['📖','사주풀이'],['💑','궁합 & 인연'],['🌅','신년 & 대운']].map(([icon, title]) => (
+              <div key={title} className="border border-border rounded-lg p-3 text-center">
+                <div className="text-lg mb-1">{icon}</div>
+                <div className="font-medium text-xs">{title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Process */}
+        <div className="px-6 py-4 bg-muted/30">
+          <div className="font-bold text-sm text-center mb-3">상담 예약 진행 과정</div>
+          <div className="flex items-start justify-between gap-1">
+            {[['📝','예약 신청'],['📅','예약 확정'],['🔮','사주 분석'],['📜','결과 전달']].map(([icon, title], i) => (
+              <React.Fragment key={title}>
+                <div className="flex flex-col items-center text-center flex-1 gap-1">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">{icon}</div>
+                  <div className="font-medium leading-tight">{title}</div>
+                </div>
+                {i < 3 && <div className="mt-3 text-muted-foreground">→</div>}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+        {/* Review */}
+        <div className="px-6 py-4 bg-background">
+          <div className="font-bold text-sm text-center mb-3">실제 상담 후기</div>
+          <div className="grid grid-cols-2 gap-2">
+            {[['이지수','30대 직장인','이직 고민 끝에 상담을 받았는데 변화의 대운이라는 설명에 과감히 결단했습니다. 정말 좋은 결과로 이어졌어요.'],
+              ['박민준','40대 자영업자','창업 시기를 사주로 잡았는데 실제로 그 시기에 시작한 사업이 잘 되고 있습니다.']].map(([name, role, content]) => (
+              <div key={name} className="border border-border rounded-lg p-3">
+                <div className="text-yellow-400 mb-1">★★★★★</div>
+                <div className="text-muted-foreground leading-relaxed mb-2">"{content}"</div>
+                <div className="font-medium">{name}</div>
+                <div className="text-muted-foreground">{role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* FAQ */}
+        <div className="px-6 py-4 bg-muted/30">
+          <div className="font-bold text-sm text-center mb-3">자주 묻는 질문</div>
+          <div className="flex flex-col gap-2">
+            {['태어난 시간을 모르면 상담이 어렵나요?','상담은 어떤 방식으로 진행되나요?','상담 내용은 비밀이 보장되나요?'].map((q) => (
+              <div key={q} className="border border-border rounded-md px-3 py-2 flex justify-between items-center">
+                <span>{q}</span>
+                <span className="text-muted-foreground">﹀</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* CTA */}
+        <div className="px-6 py-5 bg-primary/5 text-center">
+          <div className="font-bold text-sm mb-1">사주 상담 예약 신청</div>
+          <div className="text-muted-foreground mb-3">신청 후 24시간 이내에 연락드립니다</div>
+          <div className="max-w-xs mx-auto flex flex-col gap-2">
+            <div className="h-8 bg-muted rounded-md" />
+            <div className="h-8 bg-muted rounded-md" />
+            <div className="h-16 bg-muted rounded-md" />
+            <div className="h-8 bg-primary rounded-md" />
+          </div>
+        </div>
+      </div>
+    ),
+    code: `'use client'
+
+import { useState } from 'react'
+import { HeroSection } from '@/components/sections/HeroSection'
+import { CardSection } from '@/components/sections/CardSection'
+import { ProcessSection } from '@/components/sections/ProcessSection'
+import { StatsSection } from '@/components/sections/StatsSection'
+import { ReviewSection } from '@/components/sections/ReviewSection'
+import { FAQSection } from '@/components/sections/FAQSection'
+import { ContactFormSection } from '@/components/sections/ContactFormSection'
+import type { ContactFormData } from '@/components/sections/ContactFormSection'
+import { FloatingButtons } from '@/components/floating/FloatingButtons'
+import { FloatingContactForm } from '@/components/floating/FloatingContactForm'
+
+export default function LandingPage() {
+  const [isFormOpen, setIsFormOpen] = useState(false)
+
+  function handleSubmit(data: ContactFormData) {
+    console.log('상담 신청:', data)
+  }
+
+  return (
+    <>
+      <HeroSection
+        variant="background"
+        title="당신의 사주가 말하는 진짜 운명을 만나세요"
+        subtitle="30년 경력 역술인이 사주팔자·오행·대운을 정밀 분석해 인생의 방향을 밝혀드립니다"
+        ctaText="지금 바로 상담 예약"
+        ctaSecondaryText="서비스 소개 보기"
+      />
+      <StatsSection
+        variant="row"
+        items={[
+          { icon: '🔮', value: '8,500+', label: '누적 상담 건수' },
+          { icon: '⭐', value: '4.9 / 5', label: '평균 만족도' },
+          { icon: '🗓️', value: '30년', label: '역술 경력' },
+          { icon: '🔄', value: '94%', label: '재방문·재상담율' },
+        ]}
+      />
+      <CardSection
+        variant="grid3"
+        sectionTitle="주요 상담 서비스"
+        sectionSubtitle="사주팔자의 흐름으로 삶의 모든 영역을 살펴드립니다"
+        items={[
+          {
+            icon: '📖',
+            title: '사주풀이',
+            description: '생년월일시(사주팔자)를 바탕으로 타고난 성격, 직업 적성, 건강, 재물운을 깊이 있게 분석합니다.',
+          },
+          {
+            icon: '💑',
+            title: '궁합 & 인연',
+            description: '연인·부부·비즈니스 파트너와의 오행 궁합을 분석해 관계의 강점과 주의 시기를 안내합니다.',
+          },
+          {
+            icon: '🌅',
+            title: '신년 & 대운 운세',
+            description: '올해 운세와 향후 10년 대운의 흐름을 파악해 중요한 결정 시점과 기회를 미리 준비할 수 있도록 도와드립니다.',
+          },
+        ]}
+      />
+      <ProcessSection
+        variant="horizontal"
+        sectionTitle="상담 예약 진행 과정"
+        steps={[
+          { stepNumber: 1, icon: '📝', title: '온라인 예약 신청', description: '아래 신청 폼 또는 전화로 원하시는 상담 종류와 희망 일정을 알려주세요.' },
+          { stepNumber: 2, icon: '📅', title: '예약 확정 안내', description: '신청 후 24시간 이내에 연락드려 상담 일시와 방법(대면·전화·화상)을 확정합니다.' },
+          { stepNumber: 3, icon: '🔮', title: '정밀 사주 분석', description: '상담 당일 생년월일시를 바탕으로 30년 경력의 역술인이 60~90분간 정밀 분석을 진행합니다.' },
+          { stepNumber: 4, icon: '📜', title: '풀이 결과 & 조언 전달', description: '분석 결과를 상세히 설명해 드리고, 실생활에서 바로 활용할 수 있는 맞춤 조언을 제공합니다.' },
+        ]}
+      />
+      <ReviewSection
+        variant="featured"
+        sectionTitle="실제 상담 후기"
+        items={[
+          { name: '이지수', role: '30대 직장인', content: '이직을 결정하지 못하고 몇 달째 고민하다 상담을 받았습니다. 제 사주에서 지금이 변화의 대운이라는 설명을 듣고 과감히 결단했는데, 정말 좋은 결과로 이어졌습니다.', rating: 5 },
+          { name: '박민준', role: '40대 자영업자', content: '창업 시기와 사업 아이템을 고민하던 중 사주 상담을 받았습니다. 제 오행 구조와 재물운을 분석해 최적의 시작 시기를 알려주셨고, 실제로 그 시기에 시작한 사업이 잘 되고 있습니다.', rating: 5 },
+          { name: '김서연', role: '20대 대학원생', content: '연애 궁합이 궁금해서 남자친구랑 함께 방문했습니다. 두 사람의 오행이 서로 보완하는 부분과 갈등이 생길 수 있는 시기를 정확히 짚어주셔서 앞으로 관계를 더 현명하게 가꿔갈 수 있을 것 같습니다.', rating: 5 },
+          { name: '최동현', role: '50대 가장', content: '가족 전체의 신년 운세를 상담받았습니다. 아이들 진로와 아내 건강까지 꼼꼼하게 살펴봐 주셔서 가족 모두 한 해 계획을 세우는 데 큰 도움이 됐습니다.', rating: 4 },
+        ]}
+      />
+      <FAQSection
+        sectionTitle="자주 묻는 질문"
+        items={[
+          { question: '태어난 시간을 정확히 모르면 상담이 어렵나요?', answer: '시간(시주)을 모르시더라도 상담은 가능합니다. 다만 시주까지 알 때 분석 정확도가 높아집니다. 대략적인 시간대만 알고 계셔도 최대한 정밀하게 분석해 드립니다.' },
+          { question: '상담은 어떤 방식으로 진행되나요?', answer: '대면 방문, 전화, 영상통화(카카오톡·Zoom) 중 원하시는 방식을 선택하실 수 있습니다. 예약 확정 시 방법을 함께 조율해 드립니다.' },
+          { question: '상담 소요 시간은 얼마나 되나요?', answer: '기본 사주풀이는 60분, 궁합이나 신년운세 추가 시 최대 90분 내외로 진행됩니다. 충분한 시간을 할애해 궁금하신 부분을 모두 여쭤보실 수 있습니다.' },
+          { question: '상담 내용은 비밀이 보장되나요?', answer: '상담 내용은 철저하게 비밀이 보장됩니다. 상담 내용을 제3자에게 공개하지 않으며, 별도의 동의 없이 마케팅 자료로 활용하지 않습니다.' },
+          { question: '예약 취소나 일정 변경은 어떻게 하나요?', answer: '상담 예정일 24시간 전까지는 무료로 취소 또는 일정 변경이 가능합니다. 변경을 원하시면 카카오톡 또는 전화로 연락해 주시면 즉시 처리해 드립니다.' },
+          { question: '처음 방문인데 어떤 상담부터 받는 게 좋을까요?', answer: '처음이시라면 기본 사주풀이를 권해드립니다. 타고난 사주의 전반적인 흐름을 파악한 뒤, 궁합이나 신년운세 등 세부 상담으로 이어가시면 더욱 깊이 있는 안내를 받으실 수 있습니다.' },
+        ]}
+      />
+      <ContactFormSection
+        sectionTitle="사주 상담 예약 신청"
+        sectionSubtitle="신청 후 24시간 이내에 연락드립니다. 원하시는 상담 종류와 궁금한 점을 메모에 남겨주세요."
+        onSubmit={handleSubmit}
+      />
+      <FloatingButtons
+        phoneNumber="010-1234-5678"
+        kakaoLink="https://open.kakao.com/example"
+        onConsultClick={() => setIsFormOpen(true)}
+        showScrollTop
+      />
+      <FloatingContactForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onSubmit={handleSubmit}
+      />
+    </>
+  )
+}`,
+  },
+]
+
 // ─── 전체 레지스트리 ───────────────────────────────────────────
 
 export const docsRegistry: DocComponent[] = [
@@ -618,5 +826,12 @@ export const docsRegistry: DocComponent[] = [
     description: '화면 우측 하단에 슬라이드업으로 나타나는 플로팅 상담 신청 폼.',
     category: 'floating',
     variants: floatingFormVariants,
+  },
+  {
+    slug: 'saju-landing',
+    name: '사줄풀이 상담예약',
+    description: '사주풀이 상담 예약 랜딩페이지 전체 템플릿. Hero(background) + Stats + Card + Process + Review + FAQ + ContactForm + Floating 조합.',
+    category: 'templates',
+    variants: sajuLandingVariants,
   },
 ]

@@ -8,6 +8,7 @@ import { docsRegistry } from '@/lib/docs-registry'
 // 카테고리별로 컴포넌트 분류
 const sections = docsRegistry.filter((c) => c.category === 'sections')
 const floating = docsRegistry.filter((c) => c.category === 'floating')
+const templates = docsRegistry.filter((c) => c.category === 'templates')
 
 export function DocsSidebar() {
   const pathname = usePathname()
@@ -48,6 +49,33 @@ export function DocsSidebar() {
         </p>
         <nav className="flex flex-col gap-0.5">
           {floating.map((comp) => {
+            const isActive = pathname === `/docs/${comp.slug}`
+            return (
+              <Link
+                key={comp.slug}
+                href={`/docs/${comp.slug}`}
+                className={`px-3 py-2 rounded-md text-sm transition-colors ${
+                  isActive
+                    ? 'bg-accent text-accent-foreground font-medium'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                }`}
+              >
+                {comp.name}
+              </Link>
+            )
+          })}
+        </nav>
+      </div>
+
+      <Separator className="my-3" />
+
+      {/* Templates 카테고리 */}
+      <div>
+        <p className="px-3 mb-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          Templates
+        </p>
+        <nav className="flex flex-col gap-0.5">
+          {templates.map((comp) => {
             const isActive = pathname === `/docs/${comp.slug}`
             return (
               <Link
